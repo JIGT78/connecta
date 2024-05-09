@@ -17,19 +17,32 @@ class LinearBoard():
         """
         Juega en la primera posición disponible
         """
-        # buscamos la primera posición libre (None)
-        i = self._column.index(None)
-        # lo sustituimos por char
-        if not is_full():
+        # siempre y cuando no esté lleno...
+        if not self.is_full:
+            # buscamos la primera posición libre (None)
+            i = self._column.index(None)
+            # lo sustituimos por char
             self._column[i] = char
 
     def is_full(self):
-        is_full = None
-        for i in self._column.__le__ -1:
-            # contamos las posiciones llenas y si coincide con la longitud  is_full true
+        # comprobamos si esta llena la ultima posición
+        return self._column[-1] != None
 
     def is_victory(self, char):
-        return False
-    
+
+        """
+        TODO implementar correctamente esta función
+        """
+        """
+        counter = 0
+        for i in range(BOARD_LENGTH-1):
+            if i == char:
+                counter =+ 1
+        return counter >= VICTORY_STRIKE
+        """
+        
     def is_tie(self, char1, char2):
-        return False
+        """
+        no hay victoria ni de char1 ni de char2
+        """
+        return (self.is_victory('x') == False) and (self.is_victory('o') == False)
