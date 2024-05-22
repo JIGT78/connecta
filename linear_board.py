@@ -1,4 +1,5 @@
 from  settings import BOARD_LENGTH, VICTORY_STRIKE
+from list_utils import find_streak
 
 class LinearBoard():
     """
@@ -18,7 +19,7 @@ class LinearBoard():
         Juega en la primera posición disponible
         """
         # siempre y cuando no esté lleno...
-        if not self.is_full:
+        if not self.is_full():
             # buscamos la primera posición libre (None)
             i = self._column.index(None)
             # lo sustituimos por char
@@ -29,53 +30,7 @@ class LinearBoard():
         return self._column[-1] != None
 
     def is_victory(self, char):
-
-        """
-        TODO implementar correctamente esta función
-        """
-        is_char = False
-        counter = 0
-
-        while(is_char==False and counter < BOARD_LENGTH):
-            if (self._column[counter] == char):
-                is_char = True
-            counter=+1
-
-        return is_char
-
-        """
-        1. Detectaremos la presencia de UNA instancia del elemento 
-        dentro de una lista, en cualquier posición
-
-        is_char = false
-
-        for i in range(BOARD_LENGTH-1):
-            if i == char:
-                is_char = True
-
-        2. Detectaremos la presencia de N instancias del elemento 
-        dentro de una lista, en cualquier posición
-
-        counter = 0
-
-        for i in range(BOARD_LENGTH-1):
-            if i == char:
-                counter =+ 1
-
-        3. Detectaremos la presencia de N instancias SEGUIDAS 
-        del elemento dentro de una lista
-
-        """
-        prevPosition = None
-        counter = 0
-
-        for i in range(BOARD_LENGTH-1):
-            if i == 0 and i == char:
-                counter =+ 1
-            elif i == char and prevPosition == char:
-                counter =+ 1
-            prevPosition = i
-        
+        return find_streak(self._column, char, VICTORY_STRIKE)
 
 
     def is_tie(self, char1, char2):
