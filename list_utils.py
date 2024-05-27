@@ -55,3 +55,69 @@ def find_streak(list, needle, n):
      else:
         # para valores de n < 0, no tiene sentido
         return False
+
+def first_elements(list_of_lists):
+     """
+     Recibe una lista de listas y devuelve una lista
+     con los primeros elementos de la original
+     """
+     return nth_elements(list_of_lists, 0)
+
+def nth_elements(list_of_lists, n):
+     """
+     Recibe una lista de listas y devuelve una lista
+     con los enésimos elementos de la original
+     """
+     result = []
+
+     for list in list_of_lists:
+               result.append(list[n])
+
+     return result
+
+def transpose(matrix):
+     """
+     Recibe una matriz y devuelve su transpuesta
+     """
+     # Creo una matriz vacía llamada transp
+     # TODO comprobar que todas las listas recibidas tienen la misma longitud
+     transp = []
+     # Recorremos todas las columnas de la matriz original
+     for n in range(len(matrix[0])):
+          # extraigo los valores enésimos y se los encasqueto a transp
+          transp.append(nth_elements(matrix, n))
+     # devuelvo transp
+     return transp
+
+def displace(l, distance, filler=None):
+     if distance == 0:
+          return l
+     elif distance > 0:
+          filling = [filler] * distance
+          res = filling + l
+          res = res[:-distance]
+          return res
+     else:
+          filling = [filler] * abs(distance)
+          res = l + filling
+          res = res[abs(distance):]
+          return res
+
+def displace_matrix(m, filler=None):
+      # creamos una matriz vacía 
+      d = []
+      # por cada columna de la matriz original y la desplazamos su indice -1
+      for i in range(len(m)): # damos por hecho que es una matriz (lista de listas) todas de la misma longitud
+          # añadimos la columna desplazada a m
+          d.append(displace(m[i], i-1, filler))
+      # devolvemos m
+      return d 
+
+def reverse_list(l):
+     return list(reversed(l))
+
+def reverse_matrix(matrix):
+     rm = []
+     for col in matrix:
+          rm.append(reverse_list(col))
+     return rm
